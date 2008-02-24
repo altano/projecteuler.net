@@ -27,7 +27,6 @@ class LCM
         if (x%y != 0)
           if y < lowest
             lowest = y
-            print_progress(x, y)
           end
           break
         elsif y == @nums.last
@@ -36,24 +35,12 @@ class LCM
       end
       x += @nums.first
     end
-  end
-  
-  def print_progress(x, y)
-    print "["
-    print "#"*@nums.index(y)
-    print "_"*(@nums.length-(@nums.index(y)))
-    print "] "
-  
-    puts "#{x} % #{y} != 0"
-  end
+  end  
 end
 
-def o(n)
+def find_lcm_of_one_upto(n)
   a = (1..n).to_a.reverse
-  puts "#{n} = #{LCM.new(a).calc}"
-  puts "----------------------------"
+  print LCM.new(a).calc
 end
 
-o(10)
-o(15)
-o(20)
+find_lcm_of_one_upto(20)

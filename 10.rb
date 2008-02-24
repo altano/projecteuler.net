@@ -6,4 +6,4 @@
 require 'prime_numbers'
 
 primes = PrimeNumbers.collect(999999) { |p| p }
-puts sum = primes.inject { |sum,x| sum + x }
+print sum = primes.inject { |sum,x| sum + x }

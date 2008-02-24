@@ -30,4 +30,4 @@ end
 
 raise if diff(10) != 2640
 
-puts diff(100)
+print diff(100)

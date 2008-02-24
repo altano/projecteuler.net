@@ -22,5 +22,5 @@ def find_palindrome(digits)
   all_multiples.find { |x| palindrome?(x) }
 end
 
-puts find_palindrome(2)
-puts find_palindrome(3)
+# print find_palindrome(2)
+print find_palindrome(3)

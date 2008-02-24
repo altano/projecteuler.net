@@ -55,4 +55,4 @@ as = []
 numbers.each_cons(5) { |a| as << a } # as => [[7, 3, 1, 6 ,7], [3, 1, 6, 7, 1], ...]
 as = as.collect { |x| x.inject { |product, i| product *= i } } # as => [882, 126, 294, 1764, 1470, 630, ...]
 
-puts "Bingo!: #{as.max}"
+print as.max

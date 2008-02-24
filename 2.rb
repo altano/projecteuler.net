@@ -14,4 +14,4 @@ while true
   a, b = b, a+b
 end
 
-puts evens.inject(0) { |sum, n| sum += n } + 2
+print evens.inject(0) { |sum, n| sum += n } + 2

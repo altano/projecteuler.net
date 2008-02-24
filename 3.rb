@@ -10,4 +10,4 @@ def find_largest_prime_factor(n)
   PrimeNumbers.find_reverse(largest_factor) { |p| n % p == 0 }
 end
 
-puts "Bingo!: #{find_largest_prime_factor(317584931803)}" # => 3919
+print find_largest_prime_factor(317584931803) # => 3919

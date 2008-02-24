@@ -6,4 +6,4 @@
 require 'pp'
 require 'prime_numbers'
 
-puts PrimeNumbers.first(10001).last # => 104743
+print PrimeNumbers.first(10001).last # => 104743
