@@ -1,16 +1,13 @@
+# The prime factors of 13195 are 5, 7, 13 and 29.
+# 
+# What is the largest prime factor of the number 317584931803?
+
 require 'pp'
 require 'prime_numbers'
 
-def find_prime_factors(n)
-  start = (Math.sqrt(n)).ceil
-  x = start%2 == 0 ? start-1 : start
-  while x > 0
-    if n % x == 0 && PrimeNumber.prime?(x)
-      puts "Bingo!: #{x}"
-      exit
-    end
-    x -= 2
-  end
+def find_largest_prime_factor(n)
+  largest_factor = (Math.sqrt(n)).ceil
+  PrimeNumbers.find_reverse(largest_factor) { |p| n % p == 0 }
 end
 
-find_prime_factors(317584931803) # => 3919
+puts "Bingo!: #{find_largest_prime_factor(317584931803)}" # => 3919
