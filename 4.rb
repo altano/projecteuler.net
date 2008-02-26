@@ -23,4 +23,4 @@ def find_palindrome(digits)
 end
 
 # print find_palindrome(2)
-print find_palindrome(3)
+print find_palindrome(3) # => 906609

@@ -7,7 +7,7 @@ require 'prime_numbers'
 
 def find_largest_prime_factor(n)
   largest_factor = (Math.sqrt(n)).ceil
-  PrimeNumbers.find_reverse(largest_factor) { |p| n % p == 0 }
+  PrimeNumbers.upto(largest_factor).reverse.find { |p| n % p == 0 }
 end
 
 print find_largest_prime_factor(317584931803) # => 3919

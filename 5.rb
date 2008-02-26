@@ -6,7 +6,7 @@
 
 class LCM
   def initialize(nums)
-    @nums = nums
+    @nums = nums.to_a.sort.reverse
     
     # eliminate those that are redundant (by virtue of being a factor of a larger #)
     @nums.each do |i|
@@ -19,28 +19,23 @@ class LCM
   end
   
   def calc  
-    # calculate the lcm
+    # calculate the LCM
     x = @nums.first
-    lowest = @nums.first
     while true
       @nums.each do |y|
         if (x%y != 0)
-          if y < lowest
-            lowest = y
-          end
           break
         elsif y == @nums.last
           return x
         end
+        x += @nums.first
       end
-      x += @nums.first
     end
   end  
 end
 
-def find_lcm_of_one_upto(n)
-  a = (1..n).to_a.reverse
-  print LCM.new(a).calc
+def find_lcm_of_one_to(n)
+  print LCM.new((1..n)).calc
 end
 
-find_lcm_of_one_upto(20)
+find_lcm_of_one_to(20) # => 232792560

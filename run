@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+# Wrapper for running any of the solutions
+
+def invalid_argument
+  puts <<-OUTPUT
+  Usage: #{__FILE__} PROBLEM_NUMBER
+         #{__FILE__} PROBLEM_NUMBER1-PROBLEM_NUMBER2
+    i.e. #{__FILE__} 10-15
+  OUTPUT
+  exit
+end
+
+def run_programs(numbers)
+  begin
+    last_n = 0
+    numbers.each do |n|
+      last_n = n
+      print "Calcuating solution to problem \##{n}: "
+      runtime_in_seconds = Benchmark.realtime do
+        require n
+      end
+      puts " (Calculation took #{((runtime_in_seconds*100).round)/100.00} seconds)"
+    end
+  rescue LoadError => e
+    puts "There is no solution to problem #{last_n}"
+  end
+end
+
+invalid_argument if ARGV.empty?
+
+require 'benchmark'
+require 'pp'
+require 'prime_numbers'
+
+# Parse first argument
+problems = nil
+if matches = ARGV[0].match(/(\d+)-(\d+)/)
+  problems = (matches[1]..matches[2]).to_a
+elsif (1..1000).include?(ARGV[0].to_i)
+  problems = [ARGV[0]]
+else
+  invalid_argument
+end
+
+begin
+  run_programs(problems)
+rescue Exception => e
+  puts "Program failed to run with error:"
+  pp e, e.backtrace
+end
