@@ -1,0 +1,22 @@
+Introduction
+============
+
+Project Euler solutions in Ruby.  All solutions run in <1 minute on a 2.4ghz MacBook.
+
+Conveniences
+============
+
+Use 'run' command to run through multiple solutions.  i.e.:
+
+./run 1
+./run 1-5
+./run all
+
+One can simply run the individual solutions as well, of course.  i.e.:
+
+ruby 9.rb
+
+Credits
+=======
+
+All solutions written by Alan Norbauer <altano@gmail.com>

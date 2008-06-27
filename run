@@ -1,45 +1,69 @@
 #!/usr/bin/env ruby
 
-# Wrapper for running any of the solutions
+# Wrapper for running through the solutions
+
+require 'benchmark'
+require 'pp'
+
+$MAXIMUM_RUNTIME_IN_SECONDS = 45
+
+# Terminal color helpers, courtesy of:
+# http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
+def colorize(text, color_code)
+  "#{color_code}#{text}\e[0m"
+end
+def red(text); colorize(text, "\e[31m"); end
+def green(text); colorize(text, "\e[32m"); end
+def yellow(text); colorize(text, "\e[33m"); end
 
 def invalid_argument
   puts <<-OUTPUT
   Usage: #{__FILE__} PROBLEM_NUMBER
          #{__FILE__} PROBLEM_NUMBER1-PROBLEM_NUMBER2
-    i.e. #{__FILE__} 10-15
+         #{__FILE__} all
+    i.e. #{__FILE__} 5-10
   OUTPUT
   exit
 end
 
 def run_programs(numbers)
-  begin
-    last_n = 0
-    numbers.each do |n|
-      last_n = n
-      print "Calcuating solution to problem \##{n}: "
-      runtime_in_seconds = Benchmark.realtime do
-        require n
-      end
-      puts " (Calculation took #{((runtime_in_seconds*100).round)/100.00} seconds)"
+  last_n = 0
+  numbers.each do |n|
+    last_n = n
+    print "Calcuating solution to problem \##{n}: "
+    runtime_in_seconds = Benchmark.realtime do
+      require n.to_s
     end
-  rescue LoadError => e
-    puts "There is no solution to problem #{last_n}"
+    runtime_in_seconds = ((runtime_in_seconds*100).round)/100.00
+    output = " (Calculation took #{runtime_in_seconds} seconds)"
+    if runtime_in_seconds > $MAXIMUM_RUNTIME_IN_SECONDS
+      puts red(output)
+    elsif runtime_in_seconds > $MAXIMUM_RUNTIME_IN_SECONDS*0.67
+      puts yellow(output)
+    else
+      puts green(output)
+    end
   end
 end
 
 invalid_argument if ARGV.empty?
-
-require 'benchmark'
-require 'pp'
-require 'prime_numbers'
 
 # Parse first argument
 problems = nil
 if matches = ARGV[0].match(/(\d+)-(\d+)/)
   problems = (matches[1]..matches[2]).to_a
 elsif (1..1000).include?(ARGV[0].to_i)
-  problems = [ARGV[0]]
+  problems = [ARGV[0].to_i]
+elsif ARGV[0] =~ /\s*all\s*/i
+  files = Dir.new('.').entries
+  solution_pattern = /^(\d+)\.rb$/
+  numbers = files.collect { |f| f[solution_pattern, 1] }.compact
+  problems = numbers.sort { |x,y| sprintf("%05d",x) <=> sprintf("%05d",y) } # natural sort order, i.e. 8, 9, 10 rather than 10, 8, 9
 else
+  invalid_argument
+end
+
+if problems.nil? || problems.empty?
   invalid_argument
 end
 
