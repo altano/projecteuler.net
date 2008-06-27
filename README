@@ -1,7 +1,8 @@
 Introduction
 ============
 
-Project Euler solutions in Ruby.  All solutions run in <1 minute on a 2.4ghz MacBook.
+Solutions to Project Euler (projecteuler.net) problems, using Ruby.
+All solutions run in <1 minute on a 2.4ghz MacBook.
 
 Conveniences
 ============
